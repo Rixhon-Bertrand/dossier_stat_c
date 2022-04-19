@@ -5,7 +5,7 @@
 class DataSourceSerieContinue
 {
 	private:
-
+		Liste<Data1D> *L;
 	public:
 		DataSourceSerieContinue();
 };
