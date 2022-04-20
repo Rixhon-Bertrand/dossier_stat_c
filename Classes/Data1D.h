@@ -3,6 +3,7 @@
 
 class Data1D
 {
+	//pour permettre l'affichage des data1D dans la liste
 	friend ostream& operator<<(ostream&, const Data1D&);
 
 	private:
