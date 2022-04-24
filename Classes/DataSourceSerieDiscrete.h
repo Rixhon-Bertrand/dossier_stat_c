@@ -11,10 +11,10 @@ class DataSourceSerieDiscrete: public DataSource
 		Liste<Data1D> *_listeData1D;
 	public:
 		DataSourceSerieDiscrete();
-		~DataSourceSerieDiscrete();
+		DataSourceSerieDiscrete(const char*, const char*, int, int, Liste<Data1D>* );
+		virtual ~DataSourceSerieDiscrete();
 
 		//fonctions
-		void pushListe(float, int);
 		void afficheListe();
 };
 

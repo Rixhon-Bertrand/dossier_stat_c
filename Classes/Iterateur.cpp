@@ -14,7 +14,7 @@ template class Iterateur<Data1D>;
 template <class T> Iterateur<T>::Iterateur(const Liste<T>& newListe)
 {
 	#ifdef DEBUG
-		cout << "Constructeur initilisation d'iterateur Liste" << endl;
+		cout << "Constructeur initilisation d'iterateur " << endl;
 	#endif
 	setListe((Liste<T>*)&newListe);
 }
@@ -22,7 +22,7 @@ template <class T> Iterateur<T>::Iterateur(const Liste<T>& newListe)
 template <class T> Iterateur<T>::Iterateur(const ListeTriee<T>& newListe)
 {
 	#ifdef DEBUG
-		cout << "Constructeur initilisation d'iterateur ListeTriee" << endl;
+		cout << "Constructeur initilisation d'iterateur " << endl;
 	#endif
 	setListe((Liste<T>*)&newListe);
 }
@@ -31,7 +31,7 @@ template <class T> Iterateur<T>::Iterateur(const ListeTriee<T>& newListe)
 template <class T> Iterateur<T>::Iterateur(const Iterateur<T>& modele) 
 {
 	#ifdef DEBUG
-		cout << "Constructeur initilisation d'iterateur Iterateur" << endl;
+		cout << "Constructeur initilisation d'iterateur" << endl;
 	#endif
 	setListe(modele._liste);
 	_pCurrCell = modele._pCurrCell;

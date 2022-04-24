@@ -18,6 +18,7 @@ DataSource::DataSource()
     setEffTotal(-1);
     setType(-1);
 }
+
 DataSource::DataSource(const char* nom, const char* sujet, int eff, int type)
 {
     #ifdef DEBUG
