@@ -16,9 +16,6 @@ class DataSourceSerieContinue: public DataSource
 		DataSourceSerieContinue(const char*, const char*, int, int, Liste<Data1D>*);
 		~DataSourceSerieContinue();
 
-		float calculDebut(); //TO DO
-		float calculIntervalle(); //TO DO
-
 		void afficheListe();
 };
 

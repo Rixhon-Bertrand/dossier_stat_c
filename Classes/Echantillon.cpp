@@ -19,7 +19,7 @@ Echantillon::Echantillon()
 
 }
 
-Echantillon::Echantillon(const char* nom, int val)
+Echantillon::Echantillon(const char* nom, int col)
 
 {
     #ifdef DEBUG
@@ -39,7 +39,7 @@ Echantillon::~Echantillon()
 
 // ----- FONCTIONS
 
-bool Echantillon::importeFichier(const char* nomFichier)
+bool Echantillon::importeFichier(const char* nomFichier,int col)
 {
     //TO do
     // flux fichier entrée
@@ -58,9 +58,6 @@ bool Echantillon::importeFichier(const char* nomFichier)
     float val = -1;
     ListeTriee<float> listeT;
 
-    // char letter = 0; //chaque lettre
-    // char delim = ';';
-    // char endl = '\n';
     int i = 1;
     while(fichier.getline(buffer, 500))
     {
@@ -120,7 +117,7 @@ Liste<Data1D>* Echantillon::calculEffectif(ListeTriee<float> listeT)
 {
     Liste<Data1D> *pListe = new Liste<Data1D>();
 
-    float precedent = numeric_limits<float>::quiet_NaN();;
+    float precedent = numeric_limits<float>::quiet_NaN();
     int i = 1;
     Iterateur<float> it(listeT);
     for (it.reset() ; !it.end() ; it++)

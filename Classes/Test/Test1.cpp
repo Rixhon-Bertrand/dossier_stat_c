@@ -3,9 +3,7 @@
 using namespace std;
 #include <time.h>
 
-// #include "Professeur.h"
-// #include "Groupe.h"
-// #include "Local.h"
+#include"Echantillon.h"
 
 int  Menu();
 void Essai1();

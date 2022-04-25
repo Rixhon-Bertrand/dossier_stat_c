@@ -18,7 +18,7 @@ class Echantillon
 		Echantillon(const char *,int );
 		~Echantillon();
 
-		bool importeFichier(const char* nomFichier);
+		bool importeFichier(const char* nomFichier, int col);
 		Liste<Data1D>* calculEffectif(ListeTriee<float> listeT);
 };
 

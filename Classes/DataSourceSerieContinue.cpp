@@ -24,8 +24,15 @@ DataSourceSerieContinue::DataSourceSerieContinue(const char* nom, const char* su
         cout << "Constructeur d'init de DataSourceSerieContinue" << endl;
     #endif
         _listeData1D = listeData;
-        _debut = calculDebut();
-        _intervalle = calculIntervalle();
+
+        int tmp;
+        cout << "Début de l'Intervalle : ";
+        cin >> tmp;
+        _debut = tmp;
+        
+        cout << "Taille de l'Intervalle : ";
+        cin >> tmp;
+        _intervalle = tmp;
 
 }
 
@@ -46,15 +53,5 @@ void DataSourceSerieContinue::afficheListe()
     _listeData1D->Affiche();//affiche les data1D
     cout << "Debut :" << _debut << endl;
     cout << "Intervalle :" << _intervalle << endl;
-}
-
-float DataSourceSerieContinue::calculDebut()
-{
-    //TO DO
-}
-
-float DataSourceSerieContinue::calculIntervalle()
-{
-    //TO DO
 }
 // ----- OPERATORS
