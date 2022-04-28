@@ -20,6 +20,8 @@ class Echantillon
 
 		bool importeFichier(const char* nomFichier, int col);
 		Liste<Data1D>* calculEffectif(ListeTriee<float> listeT);
+
+		float split(char* chaine, const char* delimiteur, int col);
 };
 
 #endif

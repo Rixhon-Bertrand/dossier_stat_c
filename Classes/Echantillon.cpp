@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string.h>
 #include <fstream> 
+#include <string.h>
 
 #include <limits>//pour init float == NULL
 #include <cmath> // pour verifier si NULL
@@ -26,7 +27,7 @@ Echantillon::Echantillon(const char* nom, int col)
         cout << "Constructeur d'init de Echantillon" << endl;
     #endif
         
-
+        importeFichier(nom,col);
 }
 
 Echantillon::~Echantillon()
@@ -41,7 +42,6 @@ Echantillon::~Echantillon()
 
 bool Echantillon::importeFichier(const char* nomFichier,int col)
 {
-    //TO do
     // flux fichier entrée
     ifstream fichier(nomFichier, ios::in);
     if (!fichier) 
@@ -55,7 +55,6 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
     char sujet[500] = "";
     int type = -1;
     int effTotal = -1;
-    float val = -1;
     ListeTriee<float> listeT;
 
     int i = 1;
@@ -73,19 +72,17 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
             {
                 if(i == 3)
                 {
-                    if (strcmp( buffer, "D" ) == 0)
+                    if (buffer[0] == 'D')
                     {
                         type = 0;
-                    }
-                    if (strcmp( buffer, "C" ) == 0)
+                    }else
                     {
-                        type = 1;                   
+                        type = 1;
                     }
 
                 }else
                 {
-                    val = atof(buffer);
-                    listeT.insere(val);
+                    listeT.insere(split(buffer,":", col));
                 }
             }
         }
@@ -134,4 +131,23 @@ Liste<Data1D>* Echantillon::calculEffectif(ListeTriee<float> listeT)
     return pListe;
 }
 
+float Echantillon::split(char* chaine, const char* delimiteur, int col) 
+{
+    float val = -1;
+
+    char *elem = strtok(chaine, delimiteur);
+
+    int j = 0;
+    while(elem != NULL)
+    {
+        // printf("'%s'\n", elem);
+        if (j == col)
+        {
+             elem = strtok(NULL, elem);
+        }
+    }
+       
+    val = atof(elem);
+    return val;
+}
 // ----- OPERATORS
