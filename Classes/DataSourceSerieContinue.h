@@ -16,6 +16,8 @@ class DataSourceSerieContinue: public DataSource
 		DataSourceSerieContinue(const char*, const char*, int, int, Liste<Data1D>*);
 		~DataSourceSerieContinue();
 
+		Liste<Data1D>* getListe() const { return _listeData1D; };
+
 		void afficheListe();
 };
 

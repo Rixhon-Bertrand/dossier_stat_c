@@ -36,7 +36,7 @@ template<class T> class Liste
 		// setters--getters
 			Cellule<T>* getTete() const;
 			void setTete(const Cellule<T>*);//const_cast --> permet de caster la variable en CONST 
-		
+			T getElement(int) const;
 
 		// Operators
 	    const Liste<T>* operator=(const Liste<T>&);

@@ -3,7 +3,7 @@
 
 class DataSource
 {
-	private:
+	protected:
 		char* _nom;
 		char* _sujet;
 		int _effTotal;
@@ -12,7 +12,7 @@ class DataSource
 		DataSource();
 		DataSource(const char*, const char*, int, int);
 		DataSource(const DataSource&);
-		~DataSource();
+		virtual ~DataSource();
 
 		//setter/getter
 		void setNom(const char*);
@@ -20,7 +20,7 @@ class DataSource
 		void setSujet(const char*);
 		char* getSujet()const;
 		void setEffTotal(int);
-		int getEff() const {return _effTotal;}
+		int getEffTotal() const {return _effTotal;}
 		void setType(int);
 		int getType() const {return _type;}
 

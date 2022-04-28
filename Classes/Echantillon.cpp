@@ -3,6 +3,7 @@
 #include <string.h>
 #include <fstream> 
 #include <string.h>
+#include <sstream>
 
 #include <limits>//pour init float == NULL
 #include <cmath> // pour verifier si NULL
@@ -26,7 +27,7 @@ Echantillon::Echantillon(const char* nom, int col)
     #ifdef DEBUG
         cout << "Constructeur d'init de Echantillon" << endl;
     #endif
-        
+
         importeFichier(nom,col);
 }
 
@@ -58,23 +59,29 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
     ListeTriee<float> listeT;
 
     int i = 1;
+    // printf("testavantboucle\n");
     while(fichier.getline(buffer, 500))
     {
+        // printf("testBOUCLEINFINIE\n");
         if(i == 1)
         {
+            // printf("testIF1\n");
             strcpy(nom,buffer);
         }else
         {
             if(i == 2)
             {
+                // printf("testIF2\n");
                 strcpy(sujet,buffer);
             }else
             {
                 if(i == 3)
                 {
+                    // printf("testIF3\n");
                     if (buffer[0] == 'D')
                     {
                         type = 0;
+                        // printf("testIF4\n");
                     }else
                     {
                         type = 1;
@@ -82,19 +89,31 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
 
                 }else
                 {
+                    if(i == 4)
+                    {
+                        if(VerifColonnesFichier(buffer,":",col) == false)
+                        {
+                            cout << "La colonne choisie est inexistante" << endl << endl;
+                            return 0;
+                        }
+                    }
+                    // printf("testINSERTION\n");
+                    cout << buffer << endl;
                     listeT.insere(split(buffer,":", col));
+                    // printf("testFININSERTION\n");
                 }
             }
         }
 
         i++;
     }
+    // printf("testFINBOUCLE\n");
     fichier.close();
 
     effTotal = i-3;
     Liste<Data1D>* liste;
     liste = calculEffectif(listeT);
-
+    // printf("testCREATIONDATASOURCE\n");
     if (type == 0)
     {
         DataSourceSerieDiscrete* pDataSourceSerieDiscrete = new DataSourceSerieDiscrete(nom, sujet, effTotal, type, liste); 
@@ -134,20 +153,52 @@ Liste<Data1D>* Echantillon::calculEffectif(ListeTriee<float> listeT)
 float Echantillon::split(char* chaine, const char* delimiteur, int col) 
 {
     float val = -1;
-
+    // printf("testSPLIT\n");
     char *elem = strtok(chaine, delimiteur);
-
-    int j = 0;
+    int j = 1;
     while(elem != NULL)
     {
-        // printf("'%s'\n", elem);
+        cout << "Valeur de j = " << j <<  endl << endl;
+        // printf("'%s'\n\n", elem);
         if (j == col)
         {
-             elem = strtok(NULL, elem);
+            printf("'%s'\n\n", elem);
+            val = atof(elem);
+            return val;
+        }
+        else
+        {
+            elem = strtok (NULL, delimiteur);
+            j++;
         }
     }
        
-    val = atof(elem);
-    return val;
+    return -1;
 }
+
+bool Echantillon::VerifColonnesFichier(char* chaine, const char* delimiteur, int col)
+{
+    char *elem = strtok(chaine, delimiteur);
+    int j = 1;
+    while(elem != NULL)
+    {
+        elem = strtok (NULL, delimiteur);
+        j++;
+    }
+       
+
+    if(col < j)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
+}
+
+
+
+
 // ----- OPERATORS

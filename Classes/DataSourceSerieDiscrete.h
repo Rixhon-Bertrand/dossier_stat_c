@@ -14,6 +14,8 @@ class DataSourceSerieDiscrete: public DataSource
 		DataSourceSerieDiscrete(const char*, const char*, int, int, Liste<Data1D>* );
 		virtual ~DataSourceSerieDiscrete();
 
+		Liste<Data1D>* getListe() const { return _listeData1D; };
+		
 		//fonctions
 		void afficheListe();
 };

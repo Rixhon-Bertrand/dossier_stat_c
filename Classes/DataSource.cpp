@@ -42,7 +42,7 @@ DataSource::DataSource(const DataSource& modele)
     setNom(modele.getNom());
     _sujet = NULL;
     setSujet(modele.getSujet());
-    setEffTotal(modele.getEff());
+    setEffTotal(modele.getEffTotal());
     setType(modele.getType());
 }
 
@@ -124,9 +124,9 @@ void DataSource::Affiche() const
         cout << "Pas de sujet !!" <<endl;
     }
 
-    if(getEff() != -1)
+    if(getEffTotal() != -1)
     {
-        cout << "Effectif Total : " << getEff() << endl;
+        cout << "Effectif Total : " << getEffTotal() << endl;
     }else
     {
         cout << "Effectif total manquant !!" <<endl;

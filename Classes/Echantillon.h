@@ -18,10 +18,13 @@ class Echantillon
 		Echantillon(const char *,int );
 		~Echantillon();
 
+		DataSource* getSource() const { return _source; };
+
 		bool importeFichier(const char* nomFichier, int col);
 		Liste<Data1D>* calculEffectif(ListeTriee<float> listeT);
 
 		float split(char* chaine, const char* delimiteur, int col);
+		bool VerifColonnesFichier(char* chaine, const char* delimiteur, int col);
 };
 
 #endif

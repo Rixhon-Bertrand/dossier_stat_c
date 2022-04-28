@@ -193,6 +193,15 @@ template <class T> const T Liste<T>::retire(const int ind)
 	}
 
 }
+
+template <class T> T  Liste<T>::getElement(int n) const {
+	Cellule<T>* tmp = _pTete;
+	
+	for(int i = 0; i < n; i++)
+		tmp = tmp->suivant;
+	
+	return tmp->valeur;
+}
 // -------- OERATORS
 template <class T> const Liste<T>* Liste<T>::operator=(const Liste<T>& pCellparam)
 {

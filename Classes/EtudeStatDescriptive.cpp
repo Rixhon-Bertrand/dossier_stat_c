@@ -8,6 +8,7 @@ using namespace std;
 #include "Exception.h"
 #include "EtudeStat1D.h"
 #include "EtudeStat2D.h"
+#include "Data1D.h"
 // ------ CONSTRUCTORS
 EtudeStatDescriptive::EtudeStatDescriptive(int argc, char* argv[])
 {
