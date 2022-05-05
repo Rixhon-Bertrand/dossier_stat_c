@@ -57,7 +57,7 @@ int Menu()
   cout << " 2. Test MultiD" << endl;
   cout << " 3. Test MultiD Error" << endl;
   cout << " 4. Test MultiC Error" << endl;
-  cout << " 5. Test " << endl;
+  cout << " 5. Test DonneesNbEnf" << endl;
   cout << " 0. Quitter" << endl << endl;
 
   int ch;
@@ -78,7 +78,7 @@ void Essai1()
 
   // 
 
-  Echantillon TestEchantC("MultiC.dat",1);
+  Echantillon TestEchantC("MultiC.dat",2);
   // cout << endl << "Test pas de colonne" << endl << endl;
 
 
@@ -86,9 +86,6 @@ void Essai1()
 
 void Essai2()
 {
-
-    // Echantillon TestEchantD("DonneesNbEnf.txt");
-
     Echantillon TestEchantD("MultiD.dat",2);
 }
 
@@ -104,5 +101,6 @@ void Essai4()
 
 void Essai5()
 {
- 
+ Echantillon TestEchantTxt("DonneeNbEnf.txt");
+
 }

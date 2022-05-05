@@ -15,6 +15,7 @@ class Echantillon
 		DataSource *_source;
 	public:
 		Echantillon();
+		Echantillon(const char *);
 		Echantillon(const char *,int );
 		~Echantillon();
 

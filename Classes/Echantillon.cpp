@@ -21,8 +21,17 @@ Echantillon::Echantillon()
 
 }
 
-Echantillon::Echantillon(const char* nom, int col)
+Echantillon::Echantillon(const char* nom)
+{
+    #ifdef DEBUG
+        cout << "Constructeur d'init de Echantillon" << endl;
+    #endif
+        
+    importeFichier(nom,1);
+        
+}
 
+Echantillon::Echantillon(const char* nom, int col)
 {
     #ifdef DEBUG
         cout << "Constructeur d'init de Echantillon" << endl;

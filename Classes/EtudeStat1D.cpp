@@ -26,10 +26,20 @@ EtudeStat1D::EtudeStat1D(char* intitule, int col)
     #endif
 
     //creer echantillon 
-    Echantillon data(intitule, col);
-    setData(&data);
+    if(col == 0)
+    {
+        Echantillon data(intitule);
+        setData(&data);
 
-    //faire calcul 
+        //faire calcul 
+    }else
+    {
+        Echantillon data(intitule, col);
+        
+        setData(&data);
+
+        //faire calcul 
+    }
 
 }
 
