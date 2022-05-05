@@ -69,14 +69,13 @@ void EtudeStat1D::setMoyenne(Echantillon* data)
     }
 
     //calcul 
-    int eff = 1;
     float sommeTotal = 0; 
     for(int i = 0; i < pListe->getNombreElements(); i++)
     {
         sommeTotal += pListe->getElement(i).getVal() * pListe->getElement(i).getEff();
     }
     //set de la variable
-    _moyenne = sommeTotal / eff;
+    _moyenne = sommeTotal / data->getSource()->getEffTotal();
 }
 void EtudeStat1D::setMediane(Echantillon* data)
 {

@@ -25,6 +25,7 @@ class Echantillon
 
 		float split(char* chaine, const char* delimiteur, int col);
 		bool VerifColonnesFichier(char* chaine, const char* delimiteur, int col);
+		bool verifColonnes(const char* nomFichier, int col);
 };
 
 #endif

@@ -13,8 +13,8 @@ Data1D::Data1D()
         cout << "Constructeur par défaut de Data1D" << endl;
     #endif
 
-    _val = 0;
-    _eff = 0;
+    _val = -999;
+    _eff = -999;
 }
 Data1D::Data1D(float valeur, int effectif)
 {
@@ -55,7 +55,7 @@ void Data1D::setEff(int valeur)
 // ----- OPERATORS
 ostream& operator<<(ostream& flux, const Data1D& d)
 {
-    if(d.getVal() != 0 && d.getEff() != 0)
+    if(d.getVal() != -999 && d.getEff() != -999)
     {
         flux << "Valeur: " << d.getVal() <<" -- Effectif: "<< d.getEff() << endl;  
         return flux;

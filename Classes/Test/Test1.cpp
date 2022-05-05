@@ -51,12 +51,12 @@ int Menu()
 {
   cout << endl;
   cout << "----------------------------------------------------------------------------" << endl;
-  cout << "--- JEU DE TEST 4 ----------------------------------------------------------" << endl;
+  cout << "--- JEU DE TEST ------------------------------------------------------------" << endl;
   cout << "----------------------------------------------------------------------------" << endl;
-  cout << " 1. Test de la classe Data1D" << endl;
-  cout << " 2. Test " << endl;
-  cout << " 3. Test " << endl;
-  cout << " 4. Test " << endl;
+  cout << " 1. Test MultiC" << endl;
+  cout << " 2. Test MultiD" << endl;
+  cout << " 3. Test MultiD Error" << endl;
+  cout << " 4. Test MultiC Error" << endl;
   cout << " 5. Test " << endl;
   cout << " 0. Quitter" << endl << endl;
 
@@ -71,20 +71,14 @@ int Menu()
 // A FAIRE : test de la classe Data1D avec le test des liste et liste triées 
 void Essai1()
 {
-  cout << "Test constructeur de l'échantillon " << endl << endl;
 
-  // Echantillon TestEchanC("MultiC.dat",2);
+  // Echantillon TestEchantC("MultiC.dat",2);
 
-  // Echantillon TestEchantD("MultiD.dat",3);
+  // cout << endl << "Test colonne inexistante" << endl << endl;
 
-  cout << endl << "Test colonne inexistante" << endl << endl;
+  // 
 
-  // Echantillon TestEchantC("MultiC.dat",24);
-
-  // Echantillon TestEchantD("MultiD.dat",25);
-
-  // Echantillon TestEchantD("DonneesNbEnf.txt");
-
+  Echantillon TestEchantC("MultiC.dat",1);
   // cout << endl << "Test pas de colonne" << endl << endl;
 
 
@@ -92,17 +86,20 @@ void Essai1()
 
 void Essai2()
 {
- 
+
+    // Echantillon TestEchantD("DonneesNbEnf.txt");
+
+    Echantillon TestEchantD("MultiD.dat",2);
 }
 
 void Essai3()
-{
- 
+{ 
+  Echantillon TestEchantC("MultiC.dat",24);
 }
 
 void Essai4()
 {
- 
+  Echantillon TestEchantD("MultiD.dat",25);
 }
 
 void Essai5()

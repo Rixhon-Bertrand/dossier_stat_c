@@ -17,7 +17,7 @@ class Data1D
 		~Data1D();
 
 		void setVal(float);
-		int getVal() const {return _val;}
+		float getVal() const {return _val;}
 		void setEff(int);
 		int getEff() const {return _eff;}
 

@@ -27,8 +27,15 @@ Echantillon::Echantillon(const char* nom, int col)
     #ifdef DEBUG
         cout << "Constructeur d'init de Echantillon" << endl;
     #endif
-
-        importeFichier(nom,col);
+        bool verif;
+        verif = verifColonnes(nom,col);
+        if(verif == false)
+        {
+            printf("error");
+        }else
+        {
+            importeFichier(nom,col);
+        }
 }
 
 Echantillon::~Echantillon()
@@ -62,7 +69,6 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
     // printf("testavantboucle\n");
     while(fichier.getline(buffer, 500))
     {
-        // printf("testBOUCLEINFINIE\n");
         if(i == 1)
         {
             // printf("testIF1\n");
@@ -89,22 +95,13 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
 
                 }else
                 {
-                    if(i == 4)
-                    {
-                        if(VerifColonnesFichier(buffer,":",col) == false)
-                        {
-                            cout << "La colonne choisie est inexistante" << endl << endl;
-                            return 0;
-                        }
-                    }
                     // printf("testINSERTION\n");
-                    cout << buffer << endl;
+                    // cout << buffer << endl;
                     listeT.insere(split(buffer,":", col));
                     // printf("testFININSERTION\n");
                 }
             }
         }
-
         i++;
     }
     // printf("testFINBOUCLE\n");
@@ -113,7 +110,9 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
     effTotal = i-3;
     Liste<Data1D>* liste;
     liste = calculEffectif(listeT);
-    // printf("testCREATIONDATASOURCE\n");
+
+    liste->Affiche();
+
     if (type == 0)
     {
         DataSourceSerieDiscrete* pDataSourceSerieDiscrete = new DataSourceSerieDiscrete(nom, sujet, effTotal, type, liste); 
@@ -134,20 +133,22 @@ Liste<Data1D>* Echantillon::calculEffectif(ListeTriee<float> listeT)
     Liste<Data1D> *pListe = new Liste<Data1D>();
 
     float precedent = numeric_limits<float>::quiet_NaN();
-    int i = 1;
+    int i = 0;
     Iterateur<float> it(listeT);
     for (it.reset() ; !it.end() ; it++)
     {
-        if((float)it != precedent && isnan(precedent))
+        if((float)it != precedent && isnan(precedent) == false)
         {
             pListe->insere(Data1D(precedent,i));
-            i=1;
+            i = 0;
         }
         precedent = (float)it;
         i++;
     }
+    pListe->insere(Data1D(precedent,i));
     
     return pListe;
+
 }
 
 float Echantillon::split(char* chaine, const char* delimiteur, int col) 
@@ -156,14 +157,15 @@ float Echantillon::split(char* chaine, const char* delimiteur, int col)
     // printf("testSPLIT\n");
     char *elem = strtok(chaine, delimiteur);
     int j = 1;
+    cout << "debut" <<endl;
     while(elem != NULL)
     {
-        cout << "Valeur de j = " << j <<  endl << endl;
-        // printf("'%s'\n\n", elem);
+        // cout << "Valeur de j = " << j <<  endl << endl;
+        // printf("elem = '%s'\n\n", elem);
         if (j == col)
         {
-            printf("'%s'\n\n", elem);
             val = atof(elem);
+            cout << "return:" << val <<endl;
             return val;
         }
         else
@@ -172,6 +174,7 @@ float Echantillon::split(char* chaine, const char* delimiteur, int col)
             j++;
         }
     }
+    cout << "fin" <<endl <<endl;
        
     return -1;
 }
@@ -198,7 +201,30 @@ bool Echantillon::VerifColonnesFichier(char* chaine, const char* delimiteur, int
     
 }
 
-
-
-
+bool Echantillon::verifColonnes(const char* nomFichier,int col)
+{
+    // flux fichier entrée
+    ifstream fichier(nomFichier, ios::in);
+    if (!fichier) 
+    { 
+        cout << "erreur d'ouverture !" << endl;  
+        return false;
+    }
+    int i = 1;
+    char buffer[500] = "";
+    while(fichier.getline(buffer, 500))
+    {
+        if(i == 4)
+        {
+            if(VerifColonnesFichier(buffer,":",col) == false)
+            {
+                cout << "La colonne choisie est inexistante" << endl << endl;
+                return false;
+            }
+        }
+        i++;
+    }
+    fichier.close();
+    return true;
+}
 // ----- OPERATORS

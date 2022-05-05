@@ -17,6 +17,7 @@ class DataSourceSerieContinue: public DataSource
 		~DataSourceSerieContinue();
 
 		Liste<Data1D>* getListe() const { return _listeData1D; };
+		void setListe(Liste<Data1D>*);
 
 		void afficheListe();
 };
