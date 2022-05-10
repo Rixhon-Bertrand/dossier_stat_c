@@ -28,6 +28,9 @@ Echantillon::Echantillon(const char* nom)
     #endif
         
     importeFichier(nom,1);
+    #ifdef DEBUG
+        cout << "fin Echantillon" <<endl;
+    #endif
         
 }
 
@@ -45,13 +48,18 @@ Echantillon::Echantillon(const char* nom, int col)
         {
             importeFichier(nom,col);
         }
+    #ifdef DEBUG
+        cout << "fin Echantillon" <<endl;
+    #endif
 }
 
 Echantillon::~Echantillon()
 {
     #ifdef DEBUG
-    cout << "Destructeur de Echantillon'" << endl; 
+    cout << "Destructeur de Echantillon" << endl; 
     #endif
+    if(_source)
+        delete _source;
 }
 // ----- SETTERS // GETTERS
 
@@ -116,11 +124,11 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
     // printf("testFINBOUCLE\n");
     fichier.close();
 
-    effTotal = i-3;
+    effTotal = i-4;
     Liste<Data1D>* liste;
     liste = calculEffectif(listeT);
 
-    liste->Affiche();
+    // liste->Affiche();
 
     if (type == 0)
     {
@@ -166,7 +174,7 @@ float Echantillon::split(char* chaine, const char* delimiteur, int col)
     // printf("testSPLIT\n");
     char *elem = strtok(chaine, delimiteur);
     int j = 1;
-    cout << "debut" <<endl;
+    // cout << "debut" <<endl;
     while(elem != NULL)
     {
         // cout << "Valeur de j = " << j <<  endl << endl;
@@ -174,7 +182,7 @@ float Echantillon::split(char* chaine, const char* delimiteur, int col)
         if (j == col)
         {
             val = atof(elem);
-            cout << "return:" << val <<endl;
+            // cout << "return:" << val <<endl;
             return val;
         }
         else
@@ -183,7 +191,7 @@ float Echantillon::split(char* chaine, const char* delimiteur, int col)
             j++;
         }
     }
-    cout << "fin" <<endl <<endl;
+    // cout << "fin" <<endl <<endl;
        
     return -1;
 }
@@ -198,7 +206,6 @@ bool Echantillon::VerifColonnesFichier(char* chaine, const char* delimiteur, int
         j++;
     }
        
-
     if(col < j)
     {
         return true;

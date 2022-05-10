@@ -31,6 +31,10 @@ DataSource::DataSource(const char* nom, const char* sujet, int eff, int type)
     setSujet(sujet);
     setEffTotal(eff);
     setType(type);
+
+    #ifdef DEBUG
+        cout << "fin DataSource" <<endl;
+    #endif
 }
 DataSource::DataSource(const DataSource& modele)
 {
@@ -55,7 +59,7 @@ DataSource::~DataSource()
     if(_nom)
         delete []_nom;
     if(_sujet)
-        delete _sujet;
+        delete []_sujet;
 }
 // ----- SETTERS // GETTERS
 void DataSource::setNom(const char* intitule)

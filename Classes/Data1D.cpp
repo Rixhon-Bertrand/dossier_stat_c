@@ -57,7 +57,7 @@ ostream& operator<<(ostream& flux, const Data1D& d)
 {
     if(d.getVal() != -999 && d.getEff() != -999)
     {
-        flux << "Valeur: " << d.getVal() <<" -- Effectif: "<< d.getEff() << endl;  
+        flux << "Val: " << d.getVal() <<" -- Eff: "<< d.getEff() << endl;  
         return flux;
     }else
     {

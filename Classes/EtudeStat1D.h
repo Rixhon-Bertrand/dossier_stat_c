@@ -11,7 +11,7 @@ class EtudeStat1D
 		float _moyenne;
 		float _ecartType;
 		float _mediane;
-		float _mode[3];
+		float _mode[5];
 		float _variation;
 		float _min;
 		float _max;
@@ -46,7 +46,7 @@ class EtudeStat1D
 		float getMin() const { return _min; };
 		float getMax() const { return _max; };
 		
-		void Affiche();
+		void AfficheRapport(Echantillon* );
 };
 
 #endif

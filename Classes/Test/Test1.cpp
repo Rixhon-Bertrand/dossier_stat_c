@@ -5,6 +5,7 @@ using namespace std;
 // #include <string.h>
 // #include <fstream> 
 #include "Echantillon.h"
+#include "EtudeStat1D.h"
 // #include "DataSource.h"
 // #include "Liste.h"
 // #include "ListeTriee.h"
@@ -21,6 +22,7 @@ void Essai2();
 void Essai3();
 void Essai4();
 void Essai5();
+void Essai6();
 
 int main(int argc,char* argv[])
 {
@@ -38,6 +40,7 @@ int main(int argc,char* argv[])
       case 3 : Essai3(); break;
       case 4 : Essai4(); break;
       case 5 : Essai5(); break;
+      case 6 : Essai6(); break;
       default : 
       cout << endl << "Vous avez quittez l'application" << endl;
       fini = true ; break;
@@ -58,6 +61,7 @@ int Menu()
   cout << " 3. Test MultiD Error" << endl;
   cout << " 4. Test MultiC Error" << endl;
   cout << " 5. Test DonneesNbEnf" << endl;
+  cout << " 6. Test EtudeStat1D" << endl;
   cout << " 0. Quitter" << endl << endl;
 
   int ch;
@@ -103,4 +107,8 @@ void Essai5()
 {
  Echantillon TestEchantTxt("DonneeNbEnf.txt");
 
+}
+void Essai6()
+{
+  // EtudeStat1D e("MultiC.dat",1);
 }

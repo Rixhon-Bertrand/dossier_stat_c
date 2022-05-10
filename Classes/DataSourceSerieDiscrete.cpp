@@ -24,6 +24,10 @@ DataSourceSerieDiscrete::DataSourceSerieDiscrete(const char* nom, const char* su
         cout << "Constructeur d'init de DataSourceSerieDiscrete" << endl;
     #endif
         _listeData1D = listeData;
+
+    #ifdef DEBUG
+        cout << "fin Discrete" <<endl;
+    #endif
 }
 
 DataSourceSerieDiscrete::~DataSourceSerieDiscrete()
@@ -31,6 +35,9 @@ DataSourceSerieDiscrete::~DataSourceSerieDiscrete()
     #ifdef DEBUG
     cout << "Destructeur de DataSourceSerieDiscrete'" << endl; 
     #endif
+
+    if(_listeData1D)
+        delete _listeData1D;
 }
 
 

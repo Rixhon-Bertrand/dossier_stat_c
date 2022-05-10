@@ -26,7 +26,7 @@ DataSourceSerieContinue::DataSourceSerieContinue(const char* nom, const char* su
         cout << "Constructeur d'init de DataSourceSerieContinue" << endl;
     #endif
 
-    int tmp;
+    float tmp;
     cout << "Début de l'Intervalle : ";
     cin >> tmp;
     _debut = tmp;
@@ -38,29 +38,41 @@ DataSourceSerieContinue::DataSourceSerieContinue(const char* nom, const char* su
     //convertir la liste par rapport au valeur entree
     setListe(listeData);
 
-    _listeData1D->Affiche();
+    // _listeData1D->Affiche();
+
+    #ifdef DEBUG
+        cout << "fin Continue" <<endl;
+    #endif
 
 }
 
 DataSourceSerieContinue::~DataSourceSerieContinue()
 {
     #ifdef DEBUG
-    cout << "Destructeur de DataSourceSerieContinue'" << endl; 
+    cout << "Destructeur de DataSourceSerieContinue" << endl; 
     #endif
+    if(_listeData1D)
+        delete _listeData1D;
+
+    if(_listeNumeric)
+        delete _listeNumeric;
 }
 
 // ----- SETTERS // GETTERS
-
+// Effectif impair [a;b[
 void DataSourceSerieContinue::setListe(Liste<Data1D> *listeData)
 {
+    _listeNumeric = listeData;
+    // _listeNumeric->Affiche();
+    // cout << endl <<endl;
     Liste<Data1D> *listeFinale = new Liste<Data1D>();
-    cout << "setliste" << endl;
+    // cout << "setliste" << endl;
     float debutIntervalle = _debut;
     for(int i = 0; i < listeData->getNombreElements(); i++)
     {
         float finIntervalle = _intervalle + debutIntervalle;
         int nbrElem = 0;
-        if(debutIntervalle < listeData->getElement(i).getVal() )
+        if(debutIntervalle <= listeData->getElement(i).getVal() )
         {
             while(finIntervalle > listeData->getElement(i).getVal())
             {
@@ -72,7 +84,7 @@ void DataSourceSerieContinue::setListe(Liste<Data1D> *listeData)
                     break;
                 }
             }
-            listeFinale->insere(Data1D(debutIntervalle,nbrElem));
+            listeFinale->insere(Data1D((debutIntervalle*2+_intervalle)/2,nbrElem));
             debutIntervalle = finIntervalle;
             i--;
         }
@@ -80,7 +92,6 @@ void DataSourceSerieContinue::setListe(Liste<Data1D> *listeData)
         // cout << "loop : " << listeData->getElement(i).getVal() << " -- debutIntervalle :"<<debutIntervalle<<endl;
     }
     _listeData1D = listeFinale;
-
 }
 
 // ----- FONCTIONS

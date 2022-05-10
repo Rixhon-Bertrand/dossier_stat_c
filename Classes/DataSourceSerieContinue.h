@@ -9,6 +9,7 @@ class DataSourceSerieContinue: public DataSource
 {
 	private:
 		Liste<Data1D> *_listeData1D;
+		Liste<Data1D> *_listeNumeric;
 		float _debut;
 		float _intervalle;
 	public:
@@ -17,6 +18,7 @@ class DataSourceSerieContinue: public DataSource
 		~DataSourceSerieContinue();
 
 		Liste<Data1D>* getListe() const { return _listeData1D; };
+		Liste<Data1D>* getListeNumeric() const { return _listeNumeric; };
 		void setListe(Liste<Data1D>*);
 
 		void afficheListe();

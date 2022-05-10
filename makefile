@@ -7,7 +7,7 @@ OBJS= Data1D.o Data2D.o EtudeStatDescriptive.o EtudeStat1D.o EtudeStat2D.o\
 	DataSourceSerie2D.o Echantillon.o Liste.o ListeTriee.o Iterateur.o BaseException.o Exception.o \
 	
 
-GCC=g++ -m64 -Wall -I $(UTILE) 
+GCC=g++ -m64 -Wall -I $(UTILE) #-D DEBUG
 
 PROGRAMS= Applic Test1#Data1D Data2D EtudeStatDescriptive EtudeStat1D EtudeStat2D\
 	 DataSource DataSourceSerieDiscrete DataSourceSerieContinue\
