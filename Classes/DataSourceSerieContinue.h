@@ -20,7 +20,9 @@ class DataSourceSerieContinue: public DataSource
 		Liste<Data1D>* getListe() const { return _listeData1D; };
 		Liste<Data1D>* getListeNumeric() const { return _listeNumeric; };
 		void setListe(Liste<Data1D>*);
-
+		float getIntervalle() const {return _intervalle;}
+		float getDebut() const {return _debut;}
+		
 		void afficheListe();
 };
 

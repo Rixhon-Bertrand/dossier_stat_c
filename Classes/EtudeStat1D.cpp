@@ -86,13 +86,14 @@ void EtudeStat1D::setMoyenne(Echantillon* data)
     DataSourceSerieDiscrete* pDataD;
 
     pDataC = dynamic_cast<DataSourceSerieContinue*> (data->getSource());
+    pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
+
     if(pDataC)
     {
         pListe = pDataC->getListe();
     }
     else 
     {
-        pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
         if(pDataD)
             pListe = pDataD->getListe();
         else
@@ -116,24 +117,26 @@ void EtudeStat1D::setMediane(Echantillon* data)
     DataSourceSerieDiscrete* pDataD;
 
     pDataC = dynamic_cast<DataSourceSerieContinue*> (data->getSource());
+    pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
+
     if(pDataC)
     {
         pListe = pDataC->getListe();
     }
     else 
     {
-        pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
         if(pDataD)
             pListe = pDataD->getListe();
         else
             cout << "exception error" << endl;
     }
 
+    int effTotal = data->getSource()->getEffTotal();
     //calcul 
     //cas si discret
     if (pDataD != NULL)
     {
-        if(pListe->getNombreElements() % 2 == 0)
+        if(effTotal % 2 == 0)
         {
             for(int i = 0; i < pListe->getNombreElements(); i++)
             {
@@ -144,7 +147,6 @@ void EtudeStat1D::setMediane(Echantillon* data)
             }  
         }else
         {
-            int effTotal = data->getSource()->getEffTotal();
             int n = (effTotal-1) / 2;
 
             for(int i = 0; i < pListe->getNombreElements(); i++)
@@ -159,12 +161,73 @@ void EtudeStat1D::setMediane(Echantillon* data)
     }
 
     //cas si continu
+                    // TO DO
     if (pDataC != NULL)
     {   
+        float sommeEffectif = 0; //increment du nombre effectif
+        float effectifPrec = 0; //garder le nbr element precedent pour calculer les positions
+        float debutIntervalle = 0; // de la plage
+        float finIntervalle = 0; // de la plage
+        float nbrElements = 0; // de la plage
+        float position_1 = 0; // DANS la plage
+        float position_2 = 0; // DANS la plage
+        bool verif = false;
+        float deltaNextInterval = 0;
+        float debutNextIntervalle = 0;
+
+        //je cherche dans quelle plage se trouve la mediane
+        float plageCherche = data->getSource()->getEffTotal()/2;
         for(int i = 0; i < pListe->getNombreElements(); i++)
         {
-            // TO DO
+            sommeEffectif += pListe->getElement(i).getEff();
+            if(sommeEffectif >= plageCherche)
+            {
+                debutIntervalle = (pListe->getElement(i).getVal()*2 - pDataC->getIntervalle())/2;
+                finIntervalle = debutIntervalle + pDataC->getIntervalle();
+                nbrElements = pListe->getElement(i).getEff();
+
+                position_1 = plageCherche - effectifPrec;
+                position_2 = position_1 + 1;
+                if(position_2 > nbrElements)
+                {
+                    verif = true;
+                    debutNextIntervalle = (pListe->getElement(i+1).getVal()*2 - pDataC->getIntervalle())/2;
+                    deltaNextInterval = pDataC->getIntervalle()/pListe->getElement(i+1).getEff();
+                }
+                break;
+            }
+            effectifPrec = sommeEffectif;
         }
+
+        //je calcule le delta de la plage 
+        float delta = (finIntervalle - debutIntervalle)/ nbrElements;
+
+        //je verif si c'est dans la meme classe
+        if (verif == false)
+        {
+            // je verifie si c'est pair ou impair 
+            if(effTotal % 2 == 0)
+            {
+                //je prends le debut de mon intervalle + mon delta * la position dans la plage 
+                _mediane = ((debutIntervalle + delta * position_1) + (debutIntervalle + delta * position_2))/2;
+            }else
+            {
+                _mediane = debutIntervalle + delta * position_1;
+            }
+        }else
+        {
+            // je verifie si c'est pair ou impair 
+            if(effTotal % 2 == 0)
+            {
+                //je prends le debut de mon intervalle + mon delta * la position dans la plage 
+                _mediane = ((debutIntervalle + delta * position_1) + (debutNextIntervalle + deltaNextInterval))/2; 
+            }else
+            {
+                _mediane = debutIntervalle + delta * position_1;
+            }
+        }
+
+
     }
 
 }
@@ -180,20 +243,21 @@ void EtudeStat1D::setMode(Echantillon* data)
     DataSourceSerieDiscrete* pDataD;
 
     pDataC = dynamic_cast<DataSourceSerieContinue*> (data->getSource());
+    pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
+
     if(pDataC)
     {
         pListe = pDataC->getListe();
     }
     else 
     {
-        pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
         if(pDataD)
             pListe = pDataD->getListe();
         else
             cout << "exception error" << endl;
     }
 
-    // parcours une rpemiere fois pour recuperer la valeur max de l'effectif
+    // parcours une premiere fois pour recuperer la valeur max de l'effectif
     //cas série continue
     for(i = 0;i < pListe->getNombreElements(); i++)
     {
@@ -234,13 +298,14 @@ void EtudeStat1D::setEcartType(Echantillon* data)
     DataSourceSerieDiscrete* pDataD;
 
     pDataC = dynamic_cast<DataSourceSerieContinue*> (data->getSource());
+    pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
+
     if(pDataC)
     {
         pListe = pDataC->getListe();
     }
     else 
     {
-        pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
         if(pDataD)
             pListe = pDataD->getListe();
         else
@@ -277,13 +342,14 @@ void EtudeStat1D::setMin(Echantillon* data)
     DataSourceSerieDiscrete* pDataD;
 
     pDataC = dynamic_cast<DataSourceSerieContinue*> (data->getSource());
+    pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
+
     if(pDataC)
     {
         pListe = pDataC->getListeNumeric();
     }
     else 
     {
-        pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
         if(pDataD)
             pListe = pDataD->getListe();
         else
@@ -312,13 +378,14 @@ void EtudeStat1D::setMax(Echantillon* data)
     DataSourceSerieDiscrete* pDataD;
 
     pDataC = dynamic_cast<DataSourceSerieContinue*> (data->getSource());
+    pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
+
     if(pDataC)
     {
         pListe = pDataC->getListeNumeric();
     }
     else 
     {
-        pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
         if(pDataD)
             pListe = pDataD->getListe();
         else
