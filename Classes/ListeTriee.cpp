@@ -5,10 +5,12 @@ using namespace std;
 
 //classes dérivées
 #include "Data1D.h" 
+#include "Data2D.h" 
 
 template class ListeTriee<int>;
 template class ListeTriee<float>;
 template class ListeTriee<Data1D>;
+template class ListeTriee<Data2D>;
 
 
 template <class T> ListeTriee<T>::ListeTriee() : Liste<T>::Liste()

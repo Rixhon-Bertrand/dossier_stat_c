@@ -8,7 +8,6 @@ using namespace std;
 #include "Exception.h"
 #include "EtudeStat1D.h"
 #include "EtudeStat2D.h"
-#include "Data1D.h"
 // ------ CONSTRUCTORS
 EtudeStatDescriptive::EtudeStatDescriptive(int argc, char* argv[])
 {
@@ -27,7 +26,7 @@ EtudeStatDescriptive::EtudeStatDescriptive(int argc, char* argv[])
 
     else if (argc == 4)
     {
-        // EtudeStat2D E(argv[1],atoi(argv[2]),atoi(argv[3]));
+        EtudeStat2D E(argv[1],atoi(argv[2]),atoi(argv[3]));
     }
     else
     {

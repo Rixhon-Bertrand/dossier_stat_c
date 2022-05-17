@@ -33,11 +33,11 @@ Echantillon::Echantillon(const char* nom)
     #endif
         
 }
-
+//DATA1D
 Echantillon::Echantillon(const char* nom, int col)
 {
     #ifdef DEBUG
-        cout << "Constructeur d'init de Echantillon" << endl;
+        cout << "Constructeur d'init de Echantillon 1D" << endl;
     #endif
         bool verif;
         verif = verifColonnes(nom,col);
@@ -48,6 +48,33 @@ Echantillon::Echantillon(const char* nom, int col)
         {
             importeFichier(nom,col);
         }
+    #ifdef DEBUG
+        cout << "fin Echantillon" <<endl;
+    #endif
+}
+//DATA2D
+Echantillon::Echantillon(const char* nom, int col1, int col2)
+{
+    #ifdef DEBUG
+        cout << "Constructeur d'init de Echantillon 2D" << endl;
+    #endif
+        bool verif;
+        verif = verifColonnes(nom,col1);
+        if(verif == false)
+        {
+            printf("error\n");
+            exit(0);
+        }
+        verif = verifColonnes(nom,col2);
+
+        if(verif == false)
+        {
+            printf("error");
+        }else
+        {
+            importeFichier2D(nom,col1,col2);
+        }
+
     #ifdef DEBUG
         cout << "fin Echantillon" <<endl;
     #endif
@@ -77,7 +104,7 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
 
     char buffer[500] = "";
     char nom[500] = "";
-    char sujet[500] = "";
+    char* sujet = new char[500];
     int type = -1;
     int effTotal = -1;
     ListeTriee<float> listeT;
@@ -95,13 +122,13 @@ bool Echantillon::importeFichier(const char* nomFichier,int col)
             if(i == 2)
             {
                 // printf("testIF2\n");
-                strcpy(sujet,buffer);
+                strcpy (sujet,splitNom(buffer,":", col));
             }else
             {
                 if(i == 3)
                 {
                     // printf("testIF3\n");
-                    if (buffer[0] == 'D')
+                    if (strcmp(splitNom(buffer,":", col),"D") == 0)
                     {
                         type = 0;
                         // printf("testIF4\n");
@@ -196,6 +223,34 @@ float Echantillon::split(char* chaine, const char* delimiteur, int col)
     return -1;
 }
 
+char* Echantillon::splitNom(char* chaine, const char* delimiteur, int col) 
+{
+    char* nom = new char[500];
+    // printf("testSPLIT\n");
+    char *elem = strtok(chaine, delimiteur);
+    int j = 1;
+    // cout << "debut" <<endl;
+    while(elem != NULL)
+    {
+        // cout << "Valeur de j = " << j <<  endl << endl;
+        // printf("elem = '%s'\n\n", elem);
+        if (j == col)
+        {
+            strcpy(nom,elem);
+            // cout << "return:" << nom <<endl;
+            return nom;
+        }
+        else
+        {
+            elem = strtok (NULL, delimiteur);
+            j++;
+        }
+    }
+    cout << "fin" <<endl <<endl;
+       
+    return nom;
+}
+
 bool Echantillon::VerifColonnesFichier(char* chaine, const char* delimiteur, int col)
 {
     char *elem = strtok(chaine, delimiteur);
@@ -244,3 +299,84 @@ bool Echantillon::verifColonnes(const char* nomFichier,int col)
     return true;
 }
 // ----- OPERATORS
+
+// ----- 2D
+
+bool Echantillon::importeFichier2D(const char* nomFichier,int col1,int col2)
+{
+
+    // flux fichier entrée
+    ifstream fichier(nomFichier, ios::in);
+    if (!fichier) 
+    { 
+        cout << "erreur d'ouverture !" << endl;  
+        return false;
+    }
+
+    char buffer[500] = "";
+    char buffer2[500] = "";
+    char nom[500] = "";
+    char sujet1[500] = "";
+    char sujet2[500] = "";
+    int type1 = -1;
+    int type2 = -1;
+    ListeTriee<Data2D> listeT;
+
+    int i = 1;
+
+    while(fichier.getline(buffer, 500))
+    {
+        if(i == 1)
+        {
+            strcpy(nom,buffer);
+        }else
+        {
+            if(i == 2)
+            {
+                strcpy(buffer2,buffer); // car buffer est modifié avec strtok
+                strcpy (sujet1,splitNom(buffer,":", col1));
+                strcpy (sujet2,splitNom(buffer2,":", col2));
+            }else
+            {
+                if(i == 3)
+                {
+                    strcpy(buffer2,buffer); // car buffer est modifié avec strtok
+                    if (strcmp(splitNom(buffer,":", col1),"D") == 0)
+                    {
+                        type1 = 0;
+                        // printf("testIF4\n");
+                    }else
+                    {
+                        type1 = 1;
+                    }
+
+                    if (strcmp(splitNom(buffer2,":", col2),"D") == 0)
+                    {
+                        type2 = 0;
+                        // printf("testIF4\n");
+                    }else
+                    {
+                        type2 = 1;
+                    }
+
+                }else
+                {
+                    listeT.insere(Data2D(split(buffer,":", col1),split(buffer,":", col2)));
+                }
+            }
+        }
+        i++;
+    }
+
+    fichier.close();
+
+    Liste<Data2D> liste;
+    liste = listeT;
+    int effTotal = liste.getNombreElements();
+    // liste.Affiche();
+
+    DataSourceSerie2D* pDataSourceSerie2D = new DataSourceSerie2D(nom, sujet1, sujet2, type1, type2, effTotal,liste); 
+    _source = pDataSourceSerie2D;
+
+    return true;
+}

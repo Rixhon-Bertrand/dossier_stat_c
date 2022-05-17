@@ -136,32 +136,40 @@ void EtudeStat1D::setMediane(Echantillon* data)
     //cas si discret
     if (pDataD != NULL)
     {
-        if(effTotal % 2 == 0)
+        float sommeEffectif = 0;
+        
+        for(int i = 0; i < pListe->getNombreElements(); i++)
         {
-            for(int i = 0; i < pListe->getNombreElements(); i++)
+            sommeEffectif += pListe->getElement(i).getEff();
+            if(sommeEffectif >= effTotal/2)
             {
-                if(i == pListe->getNombreElements()/2)
+                if(sommeEffectif <= (effTotal/2) + 1) //interclasse
                 {
-                    _mediane = (pListe->getElement(i-1).getVal() + pListe->getElement(i).getVal())/2;
-                }
-            }  
-        }else
-        {
-            int n = (effTotal-1) / 2;
-
-            for(int i = 0; i < pListe->getNombreElements(); i++)
-            {
-                if(i == n)
+                    if(effTotal % 2 == 0) //pair
+                    {
+                        _mediane = (pListe->getElement(i).getVal() + pListe->getElement(i+1).getVal())/2;
+                    }else
+                    {
+                        _mediane = pListe->getElement(i+1).getVal();
+                    }
+                }else //intraclasse
                 {
-                    _mediane = pListe->getElement(i).getVal();
+                    if(effTotal % 2 == 0) //pair
+                    {
+                        _mediane = (pListe->getElement(i).getVal() + pListe->getElement(i).getVal())/2;
+                    }else
+                    {
+                        _mediane = pListe->getElement(i).getVal();
+                    }
                 }
-            } 
+                break;
+            }
         }
-
     }
+// _mediane = (pListe->getElement(i-1).getVal() + pListe->getElement(i).getVal())/2;
+
 
     //cas si continu
-                    // TO DO
     if (pDataC != NULL)
     {   
         float sommeEffectif = 0; //increment du nombre effectif
