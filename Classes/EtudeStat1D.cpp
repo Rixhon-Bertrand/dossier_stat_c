@@ -166,8 +166,6 @@ void EtudeStat1D::setMediane(Echantillon* data)
             }
         }
     }
-// _mediane = (pListe->getElement(i-1).getVal() + pListe->getElement(i).getVal())/2;
-
 
     //cas si continu
     if (pDataC != NULL)
@@ -211,30 +209,33 @@ void EtudeStat1D::setMediane(Echantillon* data)
         float delta = (finIntervalle - debutIntervalle)/ nbrElements;
 
         //je verif si c'est dans la meme classe
-        if (verif == false)
+        if (verif == false) // meme classe
         {
             // je verifie si c'est pair ou impair 
             if(effTotal % 2 == 0)
             {
                 //je prends le debut de mon intervalle + mon delta * la position dans la plage 
                 _mediane = ((debutIntervalle + delta * position_1) + (debutIntervalle + delta * position_2))/2;
+                // cout << "pair meme classe" <<endl;
             }else
             {
                 _mediane = debutIntervalle + delta * position_1;
+                // cout << "impair meme classe" <<endl;
             }
-        }else
+        }else // pas meme classe
         {
             // je verifie si c'est pair ou impair 
             if(effTotal % 2 == 0)
             {
                 //je prends le debut de mon intervalle + mon delta * la position dans la plage 
                 _mediane = ((debutIntervalle + delta * position_1) + (debutNextIntervalle + deltaNextInterval))/2; 
+                // cout << "pair meme interclasse" <<endl;
             }else
             {
                 _mediane = debutIntervalle + delta * position_1;
+                // cout << "impair meme interclasse" <<endl;
             }
         }
-
 
     }
 
