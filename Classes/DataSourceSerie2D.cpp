@@ -13,6 +13,7 @@ DataSourceSerie2D::DataSourceSerie2D()
         cout << "Constructeur par défaut de DataSourceSerie2D" << endl;
     #endif
 
+    _listeData2D.setTete(NULL);
 }
 DataSourceSerie2D::DataSourceSerie2D(const char* nom, const char* sujet1, const char* sujet2, int type1, int type2, int effTotal, Liste<Data2D> listeData)
     :DataSource::DataSource(nom, sujet1, effTotal, type1)
@@ -31,7 +32,6 @@ DataSourceSerie2D::~DataSourceSerie2D()
     #ifdef DEBUG
         cout << "Destructeur de DataSourceSerie2D" << endl;
     #endif
-
 }
 
 

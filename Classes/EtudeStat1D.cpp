@@ -342,14 +342,10 @@ void EtudeStat1D::setVariation(Echantillon* data)
 
 void EtudeStat1D::setMin(Echantillon* data)
 {
-    int i;
-    float valeurMin = 99999999;
-
     //init liste 
     Liste<Data1D> *pListe;
     DataSourceSerieContinue* pDataC;
     DataSourceSerieDiscrete* pDataD;
-
     pDataC = dynamic_cast<DataSourceSerieContinue*> (data->getSource());
     pDataD = dynamic_cast<DataSourceSerieDiscrete*> (data->getSource());
 
@@ -364,23 +360,13 @@ void EtudeStat1D::setMin(Echantillon* data)
         else
             cout << "exception error" << endl;
     }
-
-    for(i = 0;i < pListe->getNombreElements();i++)
-    {
-        if(valeurMin > pListe->getElement(i).getVal())
-        {
-            valeurMin = pListe->getElement(i).getVal();
-        }
-    }
     
     //set de la variable
-    _min = valeurMin;
+    _min = pListe->getElement(0).getVal();
 }
 
 void EtudeStat1D::setMax(Echantillon* data)
 {
-    float i,valeurMax;
-
     //init liste 
     Liste<Data1D> *pListe;
     DataSourceSerieContinue* pDataC;
@@ -400,16 +386,9 @@ void EtudeStat1D::setMax(Echantillon* data)
         else
             cout << "exception error" << endl;
     }
-
-    for(i = 0;i < pListe->getNombreElements();i++)
-    {
-        if(valeurMax < pListe->getElement(i).getVal())
-        {
-            valeurMax = pListe->getElement(i).getVal();
-        }
-    }
-
-    _max = valeurMax;
+   
+    int i = pListe->getNombreElements() - 1;
+    _max = pListe->getElement(i).getVal();
 }
 
 void EtudeStat1D::setEtendue()

@@ -17,6 +17,7 @@ DataSourceSerieContinue::DataSourceSerieContinue()
     #endif
 
     _listeData1D->setTete(NULL);
+    _listeNumeric->setTete(NULL);
 }
 
 DataSourceSerieContinue::DataSourceSerieContinue(const char* nom, const char* sujet, int eff, int type, Liste<Data1D> *listeData)
